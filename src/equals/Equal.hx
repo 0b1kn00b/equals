@@ -3,7 +3,13 @@ package equals;
 import haxe.EnumTools.EnumValueTools;
 
 class Equal {
-
+	static private function iz(v:Dynamic,t:Dynamic){
+		#if (haxe_ver > 4.02)
+			return Std.isOfType(v,t);
+		#else
+			return Std.is(v,t);
+		#end
+	}
 	static function isNull (a:Dynamic) : Bool {
 		return switch (Type.typeof(a)) {
 			case TNull: true;
@@ -43,10 +49,10 @@ class Equal {
 				var b_args = EnumValueTools.getParameters(cast b);
 				return equals(a_args, b_args);
 			case TClass(_):
-				if (Std.is(a, String)) {
+				if (iz(a, String)) {
 					return a == b;
 				}
-				if (Std.is(a, Array)) {
+				if (iz(a, Array)) {
 					var a = cast(a, Array<Dynamic>);
 					var b = cast(b, Array<Dynamic>);
 					if (a.length != b.length) { return false; }
@@ -58,7 +64,7 @@ class Equal {
 					return true;
 				}
 
-				if (Std.is(a, haxe.Constraints.IMap)) {
+				if (iz(a, haxe.Constraints.IMap)) {
 					var a = cast(a, Map<Dynamic, Dynamic>);
 					var b = cast(b, Map<Dynamic, Dynamic>);
 					var a_keys = [ for (key in a.keys()) key ];
@@ -72,11 +78,11 @@ class Equal {
 					return true;
 				}
 
-				if (Std.is(a, Date)) {
+				if (iz(a, Date)) {
 					return cast(a, Date).getTime() == cast(b, Date).getTime();
 				}
 
-				if (Std.is(a, haxe.io.Bytes)) {
+				if (iz(a, haxe.io.Bytes)) {
 					return equals(cast(a, haxe.io.Bytes).getData(), cast(b, haxe.io.Bytes).getData());
 				}
 
