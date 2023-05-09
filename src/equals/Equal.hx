@@ -65,8 +65,8 @@ class Equal {
 				}
 
 				if (iz(a, haxe.Constraints.IMap)) {
-					var a = cast(a, Map<Dynamic, Dynamic>);
-					var b = cast(b, Map<Dynamic, Dynamic>);
+					var a : haxe.Constraints.IMap<Dynamic, Dynamic> = cast a;
+					var b : haxe.Constraints.IMap<Dynamic, Dynamic> = cast b;
 					var a_keys = [ for (key in a.keys()) key ];
 					var b_keys = [ for (key in b.keys()) key ];
 					if (!equals(a_keys, b_keys)) { return false; }

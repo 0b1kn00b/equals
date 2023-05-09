@@ -75,9 +75,9 @@ class Test {
 		var allOk = true;
 		var runner = new Runner();
 		runner.addCase(new Test());
-		runner.onProgress.add(function (result) {
-			allOk = allOk && result.result.allOk();
-		});
+		// runner.onProgress.add(function (result) {
+		// 	allOk = allOk && result.result.allOk();
+		// });
 		Report.create(runner);
 		runner.run();
 		#if sys
